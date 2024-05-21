@@ -69,10 +69,10 @@ $.Osiris = (function () {
 
     var unloadButton = $.CreatePanel('Button', leftContainer, 'UnloadButton', {
       class: "content-navbar__tabs__btn",
-      onactivate: "UiToolkitAPI.ShowGenericPopupOneOptionCustomCancelBgStyle('Unload Osiris', 'Are you sure you want to unload Osiris?', '', 'UNLOAD', function() { $.Osiris.goHome(); $.Osiris.addCommand('unload'); }, 'RETURN', function() {}, 'dim');"
+      onactivate: "UiToolkitAPI.ShowGenericPopupOneOptionCustomCancelBgStyle('\u5378\u8f7d Osiris', '\u786e\u5b9a\u5378\u8f7d Osiris \u5417?', '', '\u786e\u5b9a', function() { $.Osiris.goHome(); $.Osiris.addCommand('unload'); }, '\u53d6\u6d88', function() {}, 'dim');"
     });
 
-    unloadButton.SetPanelEvent('onmouseover', function () { UiToolkitAPI.ShowTextTooltip('UnloadButton', 'Unload'); });
+    unloadButton.SetPanelEvent('onmouseover', function () { UiToolkitAPI.ShowTextTooltip('UnloadButton', '\u5378\u8f7d'); });
     unloadButton.SetPanelEvent('onmouseout', function () { UiToolkitAPI.HideTextTooltip(); });
 
     $.CreatePanel('Image', unloadButton, '', {
@@ -91,7 +91,7 @@ $.Osiris = (function () {
       onactivate: "$.Osiris.navigateToTab('hud');"
     });
 
-    $.CreatePanel('Label', hudTabButton, '', { text: "HUD" });
+    $.CreatePanel('Label', hudTabButton, '', { text: "\u754c\u9762 | HUD" });
 
     var visualsTabButton = $.CreatePanel('RadioButton', centerContainer, 'visuals_button', {
       group: "SettingsNavBar",
@@ -99,7 +99,7 @@ $.Osiris = (function () {
       onactivate: "$.Osiris.navigateToTab('visuals');"
     });
 
-    $.CreatePanel('Label', visualsTabButton, '', { text: "Visuals" });
+    $.CreatePanel('Label', visualsTabButton, '', { text: "\u89c6\u89c9 | Visuals" });
     
     var soundTabButton = $.CreatePanel('RadioButton', centerContainer, 'sound_button', {
       group: "SettingsNavBar",
@@ -107,7 +107,7 @@ $.Osiris = (function () {
       onactivate: "$.Osiris.navigateToTab('sound');"
     });
 
-    $.CreatePanel('Label', soundTabButton, '', { text: "Sound" });
+    $.CreatePanel('Label', soundTabButton, '', { text: "\u58f0\u97f3 | Sound" });
   };
 
   createNavbar();
@@ -177,63 +177,63 @@ $.Osiris = (function () {
   };
 
   var createOnOffDropDown = function (parent, labelText, section, feature) {
-    createDropDown(parent, labelText, section, feature, ["On", "Off"]);
+    createDropDown(parent, labelText, section, feature, ["\u5f00\u542f", "\u5173\u95ed"]);
   };
 
   var createYesNoDropDown = function (parent, labelText, section, feature, defaultIndex = 1) {
-    createDropDown(parent, labelText, section, feature, ["Yes", "No"], defaultIndex);
+    createDropDown(parent, labelText, section, feature, ["\u662f", "\u5426"], defaultIndex);
   };
 
   var hud = createTab('hud');
-  var bomb = createSection(hud, 'Bomb');
-  createYesNoDropDown(bomb, "Show Bomb Explosion Countdown And Site", 'hud', 'bomb_timer');
+  var bomb = createSection(hud, 'C4');
+  createYesNoDropDown(bomb, "\u663e\u793aC4\u7206\u70b8\u5269\u4f59\u65f6\u95f4\u4e0e\u4f4d\u7f6e", 'hud', 'bomb_timer');
   $.CreatePanel('Panel', bomb, '', { class: "horizontal-separator" });
-  createYesNoDropDown(bomb, "Show Bomb Defuse Countdown", 'hud', 'defusing_alert');
-  var killfeed = createSection(hud, 'Killfeed');
-  createYesNoDropDown(killfeed, "Preserve My Killfeed During The Round", 'hud', 'preserve_killfeed');
+  createYesNoDropDown(bomb, "\u663e\u793aC4\u62c6\u9664\u5269\u4f59\u65f6\u95f4", 'hud', 'defusing_alert');
+  var killfeed = createSection(hud, '\u51fb\u6740\u63d0\u793a');
+  createYesNoDropDown(killfeed, "\u4fdd\u5b58\u4e00\u5c40\u4e2d\u7684\u51fb\u6740\u63d0\u793a", 'hud', 'preserve_killfeed');
 
   var visuals = createTab('visuals');
 
-  var playerInfo = createSection(visuals, 'Player Information Through Walls');
-  createDropDown(playerInfo, "Enabled", 'visuals', 'player_information_through_walls', ['Enemies', 'All Players', 'Off'], 2);
+  var playerInfo = createSection(visuals, '\u900f\u89c6');
+  createDropDown(playerInfo, "\u4f7f\u80fd\u591f", 'visuals', 'player_information_through_walls', ['\u4ec5\u654c\u4eba', '\u6240\u6709\u73a9\u5bb6', '\u5173\u95ed'], 2);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createYesNoDropDown(playerInfo, "Show Player Position", 'visuals', 'player_info_position', 0);
+  createYesNoDropDown(playerInfo, "\u4f7f\u7528\u7bad\u5934\u6807\u51fa\u73a9\u5bb6\u4f4d\u7f6e", 'visuals', 'player_info_position', 0);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createDropDown(playerInfo, "Player Position Arrow Color", 'visuals', 'player_info_position_color', ['Player / Team Color', 'Team Color'], 0);
+  createDropDown(playerInfo, "\u7bad\u5934\u989c\u8272", 'visuals', 'player_info_position_color', ['\u73a9\u5bb6/\u961f\u4f0d\u989c\u8272', '\u961f\u4f0d\u989c\u8272'], 0);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createYesNoDropDown(playerInfo, "Show Player Health", 'visuals', 'player_info_health', 0);
+  createYesNoDropDown(playerInfo, "\u663e\u793a\u73a9\u5bb6\u751f\u547d\u503c", 'visuals', 'player_info_health', 0);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createDropDown(playerInfo, "Player Health Text Color", 'visuals', 'player_info_health_color', ['Health-based', 'White'], 0);
+  createDropDown(playerInfo, "\u751f\u547d\u503c\u6587\u672c\u989c\u8272", 'visuals', 'player_info_health_color', ['\u57fa\u4e8e\u751f\u547d\u503c', '\u767d\u8272'], 0);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createYesNoDropDown(playerInfo, "Show Player Active Weapon Icon", 'visuals', 'player_info_weapon', 0);
+  createYesNoDropDown(playerInfo, "\u663e\u793a\u73a9\u5bb6\u5f53\u524d\u6b66\u5668", 'visuals', 'player_info_weapon', 0);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createYesNoDropDown(playerInfo, "Show Player Active Weapon Ammo", 'visuals', 'player_info_weapon_clip', 0);
+  createYesNoDropDown(playerInfo, "\u663e\u793a\u73a9\u5bb6\u5f53\u524d\u6b66\u5668\u5f39\u836f", 'visuals', 'player_info_weapon_clip', 0);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createYesNoDropDown(playerInfo, "Show Defuse Icon", 'visuals', 'player_info_defuse', 0);
+  createYesNoDropDown(playerInfo, "\u663e\u793a\u62c6\u9664\u56fe\u6807", 'visuals', 'player_info_defuse', 0);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createYesNoDropDown(playerInfo, 'Show Picking Up Hostage Icon', 'visuals', 'player_info_hostage_pickup', 0);
+  createYesNoDropDown(playerInfo, '\u663e\u793a\u6361\u8d77\u4eba\u8d28\u56fe\u6807', 'visuals', 'player_info_hostage_pickup', 0);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createYesNoDropDown(playerInfo, 'Show Rescuing Hostage Icon', 'visuals', 'player_info_hostage_rescue', 0);
+  createYesNoDropDown(playerInfo, '\u663e\u793a\u8425\u6551\u4eba\u8d28\u56fe\u6807', 'visuals', 'player_info_hostage_rescue', 0);
   $.CreatePanel('Panel', playerInfo, '', { class: "horizontal-separator" });
-  createYesNoDropDown(playerInfo, 'Show Blinded By Flashbang Icon', 'visuals', 'player_info_blinded', 0);
+  createYesNoDropDown(playerInfo, '\u663e\u793a\u88ab\u95ea\u5149\u5f39\u81f4\u76f2\u56fe\u6807', 'visuals', 'player_info_blinded', 0);
 
   var sound = createTab('sound');
   
-  var playerSoundVisualization = createSection(sound, 'Player Sound Visualization');
+  var playerSoundVisualization = createSection(sound, '\u73a9\u5bb6\u58f0\u97f3\u53ef\u89c6\u5316');
   $.CreatePanel('Panel', playerSoundVisualization, '', { class: "horizontal-separator" });
-  createYesNoDropDown(playerSoundVisualization, "Visualize Player Footstep Sound", 'sound', 'visualize_player_footsteps');
+  createYesNoDropDown(playerSoundVisualization, "\u53ef\u89c6\u5316\u811a\u6b65\u58f0", 'sound', 'visualize_player_footsteps');
 
-  var bombSoundVisualization = createSection(sound, 'Bomb Sound Visualization');
-  createYesNoDropDown(bombSoundVisualization, "Visualize Bomb Plant Sound", 'sound', 'visualize_bomb_plant');
+  var bombSoundVisualization = createSection(sound, 'C4\u97f3\u6548\u53ef\u89c6\u5316');
+  createYesNoDropDown(bombSoundVisualization, "\u53ef\u89c6\u5316\u5b89\u653eC4\u97f3\u6548", 'sound', 'visualize_bomb_plant');
   $.CreatePanel('Panel', bombSoundVisualization, '', { class: "horizontal-separator" });
-  createYesNoDropDown(bombSoundVisualization, "Visualize Bomb Beep Sound", 'sound', 'visualize_bomb_beep');
+  createYesNoDropDown(bombSoundVisualization, "\u53ef\u89c6\u5316C4\u54cd\u97f3\u6548", 'sound', 'visualize_bomb_beep');
   $.CreatePanel('Panel', bombSoundVisualization, '', { class: "horizontal-separator" });
-  createYesNoDropDown(bombSoundVisualization, "Visualize Bomb Defuse Sound", 'sound', 'visualize_bomb_defuse');
+  createYesNoDropDown(bombSoundVisualization, "\u53ef\u89c6\u5316C4\u62c6\u9664\u97f3\u6548", 'sound', 'visualize_bomb_defuse');
 
-  var weaponSoundVisualization = createSection(sound, 'Weapon Sound Visualization');
-  createYesNoDropDown(weaponSoundVisualization, "Visualize Weapon Scope Sound", 'sound', 'visualize_scope_sound');
+  var weaponSoundVisualization = createSection(sound, '\u6b66\u5668\u97f3\u6548\u53ef\u89c6\u5316');
+  createYesNoDropDown(weaponSoundVisualization, "\u53ef\u89c6\u5316\u7784\u51c6\u97f3\u6548", 'sound', 'visualize_scope_sound');
   $.CreatePanel('Panel', weaponSoundVisualization, '', { class: "horizontal-separator" });
-  createYesNoDropDown(weaponSoundVisualization, "Visualize Weapon Reload Sound", 'sound', 'visualize_reload_sound');
+  createYesNoDropDown(weaponSoundVisualization, "\u53ef\u89c6\u5316\u6362\u5f39\u97f3\u6548", 'sound', 'visualize_reload_sound');
 
   $.Osiris.navigateToTab('hud');
 })();
