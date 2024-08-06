@@ -10,6 +10,9 @@
 
 #include "PanoramaUiPanelContext.h"
 
+struct PanelAlignmentParams;
+struct PanelMarginParams;
+
 template <typename Context>
 struct PanoramaUiPanel {
     explicit PanoramaUiPanel(Context context) noexcept
@@ -118,6 +121,11 @@ struct PanoramaUiPanel {
         return context.hasFlag(cs2::k_EPanelFlag_HasOwnLayoutFile);
     }
 
+    [[nodiscard]] std::optional<bool> isVisible() const noexcept
+    {
+        return context.hasFlag(cs2::k_EPanelFlag_IsVisible);
+    }
+
     [[nodiscard]] decltype(auto) children() const noexcept
     {
         return context.childPanels();
@@ -168,9 +176,9 @@ struct PanoramaUiPanel {
         context.setProperty(context.propertyFactory().transformOrigin(x, y));
     }
 
-    void setAlign(cs2::EHorizontalAlignment horizontalAlignment, cs2::EVerticalAlignment verticalAlignment) const noexcept
+    void setAlign(const PanelAlignmentParams& params) const noexcept
     {
-        context.setProperty(context.propertyFactory().align(horizontalAlignment, verticalAlignment));
+        context.setProperty(context.propertyFactory().align(params));
     }
 
     void setWashColor(cs2::Color color) const noexcept
@@ -183,9 +191,9 @@ struct PanoramaUiPanel {
         context.setProperty(context.propertyFactory().flowChildren(flowDirection));
     }
 
-    void setFont(std::string_view fontFamily, float fontSize, cs2::EFontWeight fontWeight) const noexcept
+    void setFont(const PanelFontParams& params) const noexcept
     {
-        context.setProperty(context.propertyFactory().font(fontFamily, fontSize, fontWeight));
+        context.setProperty(context.propertyFactory().font(params));
     }
 
     void setTextShadow(const PanelShadowParams& params) const noexcept
@@ -193,9 +201,9 @@ struct PanoramaUiPanel {
         context.setProperty(context.propertyFactory().textShadow(params));
     }
 
-    void setMargin(cs2::CUILength left, cs2::CUILength top, cs2::CUILength right, cs2::CUILength bottom) const noexcept
+    void setMargin(const PanelMarginParams& params) const noexcept
     {
-        context.setProperty(context.propertyFactory().margin(left, top, right, bottom));
+        context.setProperty(context.propertyFactory().margin(params));
     }
 
     void setColor(cs2::Color color) const noexcept
